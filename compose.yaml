@@ -1,0 +1,85 @@
+# VPS deployment with Traefik and HTTPS.
+# Requires a domain pointing to the server.
+# services:
+#   traefik:
+#     image: traefik:v3.7.16
+#     restart: unless-stopped
+#     command:
+#       - "--providers.docker=true"
+#       - "--providers.docker.exposedbydefault=false"
+#       - "--entrypoints.web.address=:80"
+#       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+#       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+#       - "--entrypoints.websecure.address=:443"
+#       - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
+#       - "--certificatesresolvers.mytlschallenge.acme.email=${SSL_EMAIL}"
+#       - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#     volumes:
+#       - traefik_data:/letsencrypt
+#       - /var/run/docker.sock:/var/run/docker.sock:ro
+#
+#   n8n:
+#     image: docker.n8n.io/n8nio/n8n:2.44.6
+#     restart: unless-stopped
+#     ports:
+#       - "127.0.0.1:5678:5678"
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.n8n.rule=Host(`${SUBDOMAIN}.${DOMAIN_NAME}`)"
+#       - "traefik.http.routers.n8n.tls=true"
+#       - "traefik.http.routers.n8n.entrypoints=websecure"
+#       - "traefik.http.routers.n8n.tls.certresolver=mytlschallenge"
+#       - "traefik.http.routers.n8n.middlewares=n8n-headers@docker"
+#       - "traefik.http.middlewares.n8n-headers.headers.stsSeconds=315360000"
+#       - "traefik.http.middlewares.n8n-headers.headers.stsIncludeSubdomains=true"
+#       - "traefik.http.middlewares.n8n-headers.headers.contentTypeNosniff=true"
+#     environment:
+#       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+#       N8N_HOST: "${SUBDOMAIN}.${DOMAIN_NAME}"
+#       N8N_PORT: "5678"
+#       N8N_PROTOCOL: "https"
+#       NODE_ENV: "production"
+#       N8N_WEBHOOK_URL: "https://${SUBDOMAIN}.${DOMAIN_NAME}/"
+#       N8N_PROXY_HOPS: "1"
+#       N8N_ENCRYPTION_KEY: "${N8N_ENCRYPTION_KEY:?Set N8N_ENCRYPTION_KEY in .env}"
+#       N8N_RESTRICT_FILE_ACCESS_TO: "/files"
+#       GENERIC_TIMEZONE: "${GENERIC_TIMEZONE:-America/Caracas}"
+#       TZ: "${GENERIC_TIMEZONE:-America/Caracas}"
+#     volumes:
+#       - n8n_data:/home/node/.n8n
+#       - ./local-files:/files
+#
+# volumes:
+#   n8n_data:
+#   traefik_data:
+
+# Local development without a domain or reverse proxy.
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:2.44.6
+    restart: unless-stopped
+
+    # Keep n8n accessible only from this machine.
+    ports:
+      - "127.0.0.1:5678:5678"
+
+    environment:
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - N8N_WEBHOOK_URL=http://localhost:5678/
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:?Set N8N_ENCRYPTION_KEY in .env}
+      - N8N_RESTRICT_FILE_ACCESS_TO=/files
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-America/Caracas}
+      - TZ=${GENERIC_TIMEZONE:-America/Caracas}
+
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./local-files:/files
+
+volumes:
+  n8n_data:
