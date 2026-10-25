@@ -1,0 +1,13 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keep.achangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- Initial project structure with local Docker Compose lab setup (`compose.yaml`).
+- Base README documentation, LICENSE, and `.gitignore` rules.
+- Security guidelines and vulnerability reporting policy (`SECURITY.md`).

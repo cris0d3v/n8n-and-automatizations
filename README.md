@@ -17,7 +17,7 @@
 
 This repository is where I experiment with n8n to understand how workflows can connect services, automate repetitive tasks, and simplify everyday processes.
 
-The goal is to build practical examples, explore different integrations, and document what I learn along the way.
+The goal is to build practical examples, explore different integrations, and document what I learn along the way. All major project updates and workflow additions are tracked in the [CHANGELOG.md](CHANGELOG.md).
 
 ## 🧪 Areas of Exploration
 
@@ -50,14 +50,16 @@ Additional tools and services will be documented as they become part of individu
 - Sensitive configuration should be managed through n8n credentials or environment variables.
 - Workflow exports should be reviewed before being published to ensure they contain no private information.
 
+For more details on security practices, environment configuration, and reporting issues, review [SECURITY.md](SECURITY.md).
+
 ## 📌 Project Status
 
-This repository is a work in progress. Examples and documentation will be added as new workflows are built and tested.
+This repository is a work in progress. Examples and documentation will be added as new workflows are built and tested. Track progress in [CHANGELOG.md](CHANGELOG.md).
 
 ## 📄 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Autor
+## Author
 
-by: Cristian Martínez - [cris0d3v](https://github.com/cris0d3v).
+Crafted by **Cristian Martínez** ([@cris0d3v](https://github.com/cris0d3v)).

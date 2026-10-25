@@ -1,0 +1,17 @@
+# Security Policy
+
+## Supported Versions
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 1.x     | :white_check_mark: |
+
+## Reporting a Vulnerability
+
+If you discover a security vulnerability within this project, please do not open a public issue. Instead, reach out privately or follow standard responsible disclosure practices. 
+
+Since this repository serves as a personal workspace for n8n workflows and infrastructure templates, please ensure you adhere to the following security practices when using or contributing code:
+
+- **Never commit secrets:** Ensure that API keys, webhook secrets, database credentials, and `.env` files are never tracked or pushed to the repository.
+- **Encryption Keys:** Always use a secure, randomly generated `N8N_ENCRYPTION_KEY` in production environments.
+- **Workflow Sanitization:** Before exporting and sharing any n8n workflow JSON, make sure to strip out hardcoded credentials, personal tokens, and sensitive webhook URLs.
