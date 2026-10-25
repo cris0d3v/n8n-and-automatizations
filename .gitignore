@@ -1,0 +1,31 @@
+# Environment & Secret Files
+.env
+.env.local
+.env.*.local
+*.env
+
+# n8n Local Data & Storage
+.n8n/
+n8n_data/
+*.sqlite
+database.sqlite
+*credentials*.json
+*secret*.json
+
+# Logs & Temporary Files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node.js / Custom Code Nodes
+node_modules/
+dist/
+.npm
+
+# OS & Editor Specific Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
